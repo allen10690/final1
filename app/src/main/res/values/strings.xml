@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">Chital趣遊</string>
+    <string name="pass" />
+    <string name="acc" />
+    <string name="textview">歡迎使用</string>
+</resources>
