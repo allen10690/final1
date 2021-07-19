@@ -11,28 +11,29 @@
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="88dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginBottom="15dp"
         android:text="@string/app_name"
         android:textColor="@color/black"
         android:textSize="40sp"
-        app:layout_constraintBottom_toTopOf="@+id/editTextTextPersonName"
+        app:layout_constraintBottom_toTopOf="@+id/imageView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.489"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintVertical_bias="0.266" />
 
     <EditText
         android:id="@+id/editTextTextPersonName"
         android:layout_width="189dp"
         android:layout_height="41dp"
         android:layout_marginBottom="40dp"
+        android:background="@color/white"
         android:ems="10"
         android:hint="帳號"
-        android:textSize="25sp"
-        android:background="@color/white"
         android:inputType="textPersonName"
         android:text="@string/acc"
+        android:textSize="25sp"
         app:layout_constraintBottom_toTopOf="@+id/editTextTextPersonName2"
         app:layout_constraintEnd_toEndOf="@+id/editTextTextPersonName2"
         app:layout_constraintHorizontal_bias="0.0"
@@ -42,12 +43,12 @@
         android:id="@+id/editTextTextPersonName2"
         android:layout_width="189dp"
         android:layout_height="43dp"
+        android:background="@color/white"
         android:ems="10"
         android:hint="密碼"
-        android:textSize="25sp"
-        android:background="@color/white"
         android:inputType="textPersonName"
         android:text="@string/pass"
+        android:textSize="25sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.502"
@@ -79,5 +80,16 @@
         android:textSize="25sp"
         app:layout_constraintEnd_toEndOf="@+id/editTextTextPersonName2"
         app:layout_constraintTop_toTopOf="@+id/button" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="217dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="457dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        app:srcCompat="@drawable/_5281" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
