@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <!-- 返回按鈕 (回到group頁面) -->
     <Button
         android:id="@+id/button_to_group"
         android:layout_width="wrap_content"
@@ -20,6 +21,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.023" />
 
+    <!-- 按鈕：進入聊天室 -->
     <Button
         android:id="@+id/button_chatroom"
         android:layout_width="wrap_content"
@@ -32,6 +34,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.349" />
 
+    <!-- 按鈕：查看地圖 -->
     <Button
         android:id="@+id/button_map"
         android:layout_width="wrap_content"
@@ -43,6 +46,7 @@
         app:layout_constraintStart_toStartOf="@+id/button_chatroom"
         app:layout_constraintTop_toBottomOf="@+id/button_chatroom" />
 
+    <!-- 按鈕：查看群組資訊、成員 -->
     <Button
         android:id="@+id/button_member"
         android:layout_width="wrap_content"
@@ -54,6 +58,7 @@
         app:layout_constraintStart_toStartOf="@+id/button_map"
         app:layout_constraintTop_toBottomOf="@+id/button_map" />
 
+    <!-- 按鈕：行程表 -->
     <Button
         android:id="@+id/button_schedule"
         android:layout_width="wrap_content"
@@ -65,6 +70,7 @@
         app:layout_constraintStart_toStartOf="@+id/button_member"
         app:layout_constraintTop_toBottomOf="@+id/button_member" />
 
+    <!-- 此處顯示"該群組名稱" -->
     <TextView
         android:id="@+id/textView_groupName"
         android:layout_width="wrap_content"

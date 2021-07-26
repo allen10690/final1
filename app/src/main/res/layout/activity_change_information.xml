@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <!-- 返回按鈕 (回到personalinformation頁面) -->
     <Button
         android:id="@+id/button_to_personalinformation"
         android:layout_width="wrap_content"
@@ -21,6 +22,7 @@
         app:layout_constraintVertical_bias="0.023"
         tools:layout_editor_absoluteX="13dp" />
 
+    <!-- 標題：修改個資 -->
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
@@ -35,6 +37,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0" />
 
+    <!-- 輸入框：新名字 -->
     <EditText
         android:id="@+id/name_new"
         android:layout_width="189dp"
@@ -51,6 +54,7 @@
         app:layout_constraintStart_toStartOf="@+id/textView"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
+    <!-- 輸入框：新電話 -->
     <EditText
         android:id="@+id/phone_new"
         android:layout_width="189dp"
@@ -67,6 +71,7 @@
         app:layout_constraintStart_toStartOf="@+id/name_new"
         app:layout_constraintTop_toBottomOf="@+id/name_new" />
 
+    <!-- 按鈕：確認修改 -->
     <Button
         android:id="@+id/button_confirm"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -84,6 +89,7 @@
         tools:layout_editor_absoluteX="101dp"
         tools:layout_editor_absoluteY="512dp" />
 
+    <!-- 按鈕：取消(清空輸入) -->
     <Button
         android:id="@+id/button_cancel"
         app:layout_constraintEnd_toEndOf="@+id/phone_new"
