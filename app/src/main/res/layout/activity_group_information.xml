@@ -128,7 +128,14 @@
 
     </LinearLayout>
 
-
+    <!-- 按鈕：回到home -->
+    <Button
+        android:id="@+id/button19"
+        android:layout_width="72dp"
+        android:layout_height="43dp"
+        android:text="首頁"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

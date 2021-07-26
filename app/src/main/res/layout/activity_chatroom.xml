@@ -15,7 +15,33 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <!-- 標題：顯示群組名稱(聊天室) -->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:orientation="horizontal">
+
+            <!-- 按鈕：回到home -->
+            <Button
+                android:id="@+id/button8"
+                android:layout_width="45dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="首頁" />
+
+            <!-- 標題：聊天室 -->
+            <TextView
+                android:id="@+id/textView8"
+                android:layout_width="wrap_content"
+                android:layout_height="44dp"
+                android:layout_weight="9"
+                android:gravity="center"
+                android:text="聊天室              "
+                android:textColor="@color/black"
+                android:textSize="20sp" />
+        </LinearLayout>
+
+        <!-- 顯示群組名稱(聊天室) -->
         <TextView
             android:id="@+id/textView6"
             android:layout_width="match_parent"
@@ -28,7 +54,7 @@
         <!-- 此處顯示群組訊息 -->
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="585dp"
+            android:layout_height="540dp"
             android:orientation="vertical"></LinearLayout>
 
         <LinearLayout
