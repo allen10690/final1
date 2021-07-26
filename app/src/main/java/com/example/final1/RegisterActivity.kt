@@ -12,8 +12,7 @@ class RegisterActivity : AppCompatActivity() {
         setContentView(R.layout.activity_register)
         val btnlogin : Button = findViewById(R.id.button_to_login)
         btnlogin.setOnClickListener{
-            val intent = Intent(this@RegisterActivity, MainActivity::class.java)
-            startActivity(intent)
+            finish()
         }
 
     }
