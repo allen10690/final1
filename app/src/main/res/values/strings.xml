@@ -9,7 +9,6 @@
     <string name="my_name">My name</string>
     <string name="title_activity_main2">MainActivity</string>
 
-
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>
     <string name="second_fragment_label">Second Fragment</string>
@@ -44,5 +43,6 @@
     <string name="to_schedule_setting_btn">行程設定</string>
     <string name="to_group_btn">群組設定</string>
     <string name="other_setting_title">其他</string>
+    <string name="title_activity_maps">Map</string>
 
 </resources>

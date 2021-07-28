@@ -3,6 +3,7 @@ package com.example.final1
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 
 class MainActivity : AppCompatActivity() {
@@ -16,8 +17,9 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this@MainActivity, RegisterActivity::class.java)
             startActivity(intent)
         }
+        Log.d("test", "This is Verbosdtfyntre.")
         login_btn.setOnClickListener {
-            val intent = Intent(this,HomeActivity::class.java)
+            val intent = Intent(this,MapsActivity::class.java)
             startActivity(intent)
         }
     }
