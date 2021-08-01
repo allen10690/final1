@@ -6,14 +6,12 @@ import android.annotation.SuppressLint
 import android.app.Dialog
 import android.content.DialogInterface
 import android.content.pm.PackageManager
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
-import com.example.final1.databinding.ActivityMapsBinding
 import android.location.LocationListener
 import android.location.LocationManager
 import android.widget.TextView
@@ -29,7 +27,6 @@ import com.google.android.gms.maps.SupportMapFragment
 class MapsActivity : FragmentActivity(), OnMapReadyCallback ,LocationListener ,LocationSource{
 
     private lateinit var mMap: GoogleMap
-    private lateinit var binding: ActivityMapsBinding
     private var REQUEST_PERMISSION_FOR_ACCESS_FINE_LOCATION=100 //定義權限編號
     private lateinit var mLocationMgr :LocationManager
     private lateinit var mLocationChangedListener: LocationSource.OnLocationChangedListener
@@ -97,15 +94,13 @@ class MapsActivity : FragmentActivity(), OnMapReadyCallback ,LocationListener ,L
     }
 
     override fun onLocationChanged(location: Location) {
-        if(mLocationChangedListener !=null){
-            mLocationChangedListener.onLocationChanged(location)//抓之前的位置
-        }
+        mLocationChangedListener.onLocationChanged(location)//抓之前的位置
         mMap.animateCamera(CameraUpdateFactory.newLatLng(LatLng(location.latitude,location.longitude)))//可能要改!!!移動鏡頭到新位置
 
         //設定經緯度顯示
         val la=location.latitude.toString()
         val lo=location.longitude.toString()
-        mylocationtxt="我的經度是"+lo+"，我的緯度是:"+la
+        mylocationtxt="我的經度是"+lo+"，\n我的緯度是:"+la
         val mylocationinfo : TextView =findViewById(R.id.mylocationinfo)
         mylocationinfo.setText(mylocationtxt)
 
@@ -118,7 +113,9 @@ class MapsActivity : FragmentActivity(), OnMapReadyCallback ,LocationListener ,L
     }
 
     override fun deactivate() {
-        TODO("Not yet implemented")
+        checkLocationPermissionAndEnableIt(false)
+        Toast.makeText(this@MapsActivity,"地圖的my location layer關掉了",Toast.LENGTH_LONG).show()
+
     }
 
     override fun onStart() {
