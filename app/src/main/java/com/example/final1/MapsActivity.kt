@@ -65,9 +65,6 @@ class MapsActivity : FragmentActivity(), OnMapReadyCallback ,LocationListener ,L
         val m=supportFragmentManager.beginTransaction()
         m.replace(R.id.map, supportMapFragment).commit()
 
-
-
-
     }
 
     override fun onMapReady(googleMap: GoogleMap) {
@@ -101,9 +98,11 @@ class MapsActivity : FragmentActivity(), OnMapReadyCallback ,LocationListener ,L
 
     override fun onLocationChanged(location: Location) {
         if(mLocationChangedListener !=null){
-            mLocationChangedListener.onLocationChanged(location)
+            mLocationChangedListener.onLocationChanged(location)//抓之前的位置
         }
-        mMap.animateCamera(CameraUpdateFactory.newLatLng(LatLng(location.latitude,location.longitude)))//可能要改!!!
+        mMap.animateCamera(CameraUpdateFactory.newLatLng(LatLng(location.latitude,location.longitude)))//可能要改!!!移動鏡頭到新位置
+
+        //設定經緯度顯示
         val la=location.latitude.toString()
         val lo=location.longitude.toString()
         mylocationtxt="我的經度是"+lo+"，我的緯度是:"+la
@@ -124,7 +123,7 @@ class MapsActivity : FragmentActivity(), OnMapReadyCallback ,LocationListener ,L
 
     override fun onStart() {
         super.onStart()
-
+        checkLocationPermissionAndEnableIt(true)
     }
 
     override fun onStop(){
