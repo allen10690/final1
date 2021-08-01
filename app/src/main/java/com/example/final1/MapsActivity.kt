@@ -15,6 +15,8 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.example.final1.databinding.ActivityMapsBinding
 import android.location.LocationListener
+import android.location.LocationManager
+import android.widget.Toast
 import androidx.annotation.NonNull
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
@@ -26,6 +28,8 @@ class MapsActivity : FragmentActivity(), OnMapReadyCallback ,LocationListener ,L
     private lateinit var mMap: GoogleMap
     private lateinit var binding: ActivityMapsBinding
     private var REQUEST_PERMISSION_FOR_ACCESS_FINE_LOCATION=100 //定義權限編號
+    private lateinit var mLocationMgr :LocationManager
+    private lateinit var mLocationChangedListener: LocationSource.OnLocationChangedListener
 
     //測試權限
     override fun onRequestPermissionsResult(
@@ -47,13 +51,15 @@ class MapsActivity : FragmentActivity(), OnMapReadyCallback ,LocationListener ,L
         binding = ActivityMapsBinding.inflate(layoutInflater)
         setContentView(binding.root)
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
-        val mapFragment = supportFragmentManager
-            .findFragmentById(R.id.map) as SupportMapFragment
+        val mapFragment = supportFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
+        mLocationMgr = getSystemService(LOCATION_SERVICE) as LocationManager
     }
 
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
+        mMap.isMyLocationEnabled=true
+        mMap.setLocationSource(this)
 
         // Add a marker in Sydney and move the camera
         val sydney = LatLng(25.033611, 121.5650)
@@ -63,23 +69,33 @@ class MapsActivity : FragmentActivity(), OnMapReadyCallback ,LocationListener ,L
         if (ActivityCompat.checkSelfPermission(
                 this,
                 Manifest.permission.ACCESS_FINE_LOCATION
-            ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
-                this,
-                Manifest.permission.ACCESS_COARSE_LOCATION
-            ) != PackageManager.PERMISSION_GRANTED
-        ) {
-            return
+            ) == PackageManager.PERMISSION_GRANTED) {
+                var location = mLocationMgr.getLastKnownLocation(LocationManager.GPS_PROVIDER)
+            if(location==null){
+                location=mLocationMgr.getLastKnownLocation(LocationManager.NETWORK_PROVIDER)
+            }
+            if(location!=null){
+                Toast.makeText(this@MapsActivity,"取得了一次定位",Toast.LENGTH_LONG).show()
+                onLocationChanged(location)
+            }else{
+                Toast.makeText(this@MapsActivity,"沒有定位資料",Toast.LENGTH_LONG).show()
+            }
         }
-        mMap.isMyLocationEnabled=true
 
     }
 
     override fun onLocationChanged(location: Location) {
-        TODO("Not yet implemented")
+        if(mLocationChangedListener !=null){
+            mLocationChangedListener.onLocationChanged(location)
+        }
+        mMap.animateCamera(CameraUpdateFactory.newLatLng(LatLng(location.latitude,location.longitude)))//可能要改!!!
+
     }
 
     override fun activate(p0: LocationSource.OnLocationChangedListener) {
-        TODO("Not yet implemented")
+        mLocationChangedListener = p0
+        checkLocationPermissionAndEnableIt(true)
+        Toast.makeText(this@MapsActivity,"地圖塗層啟用",Toast.LENGTH_LONG).show()
     }
 
     override fun deactivate() {
@@ -88,8 +104,12 @@ class MapsActivity : FragmentActivity(), OnMapReadyCallback ,LocationListener ,L
 
     override fun onStart() {
         super.onStart()
-        if (mMap!=null)
-            checkLocationPermissionAndEnableIt(true)
+
+    }
+
+    override fun onStop(){
+        super.onStop()
+        checkLocationPermissionAndEnableIt(false)//停止定位
     }
 
     private fun checkLocationPermissionAndEnableIt(on: Boolean) {
@@ -117,6 +137,22 @@ class MapsActivity : FragmentActivity(), OnMapReadyCallback ,LocationListener ,L
                     ),REQUEST_PERMISSION_FOR_ACCESS_FINE_LOCATION)
 
             }
+        }
+
+        //已經有使用者同意
+        if(on){
+            if(mLocationMgr.isProviderEnabled(LocationManager.GPS_PROVIDER)){
+                mLocationMgr.requestLocationUpdates(LocationManager.GPS_PROVIDER,500L,5f,this)
+                Toast.makeText(this@MapsActivity,"用GPS定位",Toast.LENGTH_LONG).show()
+            }else{
+                if(mLocationMgr.isProviderEnabled(LocationManager.NETWORK_PROVIDER)){
+                    mLocationMgr.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,500L,5f,this)
+                    Toast.makeText(this@MapsActivity,"用網路定位",Toast.LENGTH_LONG).show()
+                }
+            }
+        }else{
+            mLocationMgr.removeUpdates(this)
+            Toast.makeText(this@MapsActivity,"定位已經停用了",Toast.LENGTH_LONG).show()
         }
 
 
