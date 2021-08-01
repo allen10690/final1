@@ -16,12 +16,15 @@ import com.google.android.gms.maps.model.MarkerOptions
 import com.example.final1.databinding.ActivityMapsBinding
 import android.location.LocationListener
 import android.location.LocationManager
+import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.NonNull
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import com.google.android.gms.maps.*
+import com.google.android.gms.maps.SupportMapFragment
+
 
 class MapsActivity : FragmentActivity(), OnMapReadyCallback ,LocationListener ,LocationSource{
 
@@ -30,6 +33,8 @@ class MapsActivity : FragmentActivity(), OnMapReadyCallback ,LocationListener ,L
     private var REQUEST_PERMISSION_FOR_ACCESS_FINE_LOCATION=100 //定義權限編號
     private lateinit var mLocationMgr :LocationManager
     private lateinit var mLocationChangedListener: LocationSource.OnLocationChangedListener
+    private lateinit var mylocationtxt : String
+
 
     //測試權限
     override fun onRequestPermissionsResult(
@@ -48,12 +53,21 @@ class MapsActivity : FragmentActivity(), OnMapReadyCallback ,LocationListener ,L
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityMapsBinding.inflate(layoutInflater)
-        setContentView(binding.root)
-        // Obtain the SupportMapFragment and get notified when the map is ready to be used.
-        val mapFragment = supportFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
-        mapFragment.getMapAsync(this)
-        mLocationMgr = getSystemService(LOCATION_SERVICE) as LocationManager
+        setContentView(R.layout.activity_maps)
+        mLocationMgr = getSystemService(LOCATION_SERVICE) as LocationManager//開一個location
+
+
+        // 建立SupportMapFragment，並且設定Map的callback
+        val supportMapFragment = SupportMapFragment()
+        supportMapFragment.getMapAsync(this)
+
+        // 把SupportMapFragment放到介面佈局檔裡頭的FrameLayout顯示。
+        val m=supportFragmentManager.beginTransaction()
+        m.replace(R.id.map, supportMapFragment).commit()
+
+
+
+
     }
 
     override fun onMapReady(googleMap: GoogleMap) {
@@ -82,6 +96,7 @@ class MapsActivity : FragmentActivity(), OnMapReadyCallback ,LocationListener ,L
             }
         }
 
+
     }
 
     override fun onLocationChanged(location: Location) {
@@ -89,6 +104,11 @@ class MapsActivity : FragmentActivity(), OnMapReadyCallback ,LocationListener ,L
             mLocationChangedListener.onLocationChanged(location)
         }
         mMap.animateCamera(CameraUpdateFactory.newLatLng(LatLng(location.latitude,location.longitude)))//可能要改!!!
+        val la=location.latitude.toString()
+        val lo=location.longitude.toString()
+        mylocationtxt="我的經度是"+lo+"，我的緯度是:"+la
+        val mylocationinfo : TextView =findViewById(R.id.mylocationinfo)
+        mylocationinfo.setText(mylocationtxt)
 
     }
 

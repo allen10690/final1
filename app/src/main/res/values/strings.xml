@@ -44,5 +44,6 @@
     <string name="to_group_btn">群組設定</string>
     <string name="other_setting_title">其他</string>
     <string name="title_activity_maps">Map</string>
+    <string name="mylocationinfo">我的位置在:</string>
 
 </resources>
