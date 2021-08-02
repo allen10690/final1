@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Controller.MainActivity">
+
+    <LinearLayout
+        android:id="@+id/LinearLayout_head"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:background="@android:color/holo_purple"
+        android:gravity="top"
+        android:orientation="horizontal">
+
+        <!-- 按鈕：回到home -->
+        <Button
+            android:id="@+id/button8"
+            android:layout_width="45dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="首頁" />
+
+        <!-- 標題：聊天室 -->
+        <TextView
+            android:id="@+id/textView_chatroom"
+            android:layout_width="wrap_content"
+            android:layout_height="44dp"
+            android:layout_weight="9"
+            android:gravity="center"
+            android:text="聊天室              "
+            android:textColor="#000000"
+            android:textSize="20sp" />
+    </LinearLayout>
+
+    <!-- 顯示群組名稱(聊天室) -->
+    <TextView
+        android:id="@+id/textView_group_name"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_below="@id/LinearLayout_head"
+        android:background="@color/bgblue"
+        android:ems="20"
+        android:gravity="center"
+        android:textColor="#000000"
+        android:textSize="20sp" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fabSend"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+
+        android:layout_above="@id/linearLayout_buttons"
+        android:layout_marginRight="4dp"
+        android:clickable="true"
+        android:onClick="fabSend"
+        android:src="@drawable/icons_send24"
+        android:tint="@android:color/white"
+        app:fabSize="mini" />
+
+    <!--
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fabCamera"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="4dp"
+        android:layout_toLeftOf="@id/fabSend"
+        android:layout_alignParentBottom="true"
+        android:clickable="true"
+        android:src="@drawable/camera"
+        android:tint="@android:color/white"
+        app:fabSize="mini" />-->
+
+    <!--
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fabAlbum"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="4dp"
+        android:layout_toLeftOf="@id/fabCamera"
+        android:layout_alignParentBottom="true"
+        android:clickable="true"
+        android:src="@drawable/albums"
+        android:tint="@android:color/white"
+        android:onClick="fabAlbum"
+        app:fabSize="mini" />-->
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_above="@id/linearLayout_buttons"
+        android:layout_toLeftOf="@id/fabSend">
+        <!-- 上一行原是android:layout_toLeftOf="@id/fabAlbum"-->
+
+        <EditText
+            android:id="@+id/edtInput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:imeOptions="actionDone"
+            android:singleLine="true"
+            android:hint="input"
+            android:paddingLeft="16dp"/>
+
+    </android.support.design.widget.TextInputLayout>
+
+    <!-- 底部按鈕排列 -->
+    <LinearLayout
+        android:id="@+id/linearLayout_buttons"
+        android:layout_width="409dp"
+        android:layout_height="45dp"
+        android:orientation="horizontal"
+        android:layout_alignParentBottom="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <!-- 按鈕：聊天室 -->
+        <Button
+            android:id="@+id/button9"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="聊天室" />
+
+        <!-- 按鈕：地圖 -->
+        <Button
+            android:id="@+id/button10"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="地圖" />
+
+        <!-- 按鈕：群組資訊 -->
+        <Button
+            android:id="@+id/button11"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="群組資訊" />
+
+        <!-- 按鈕：行程 -->
+        <Button
+            android:id="@+id/button12"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="行程" />
+
+    </LinearLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:overScrollMode="never"
+        android:layout_above="@id/fabSend"
+        android:layout_below="@id/textView_group_name"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp">
+
+    </android.support.v7.widget.RecyclerView>
+
+</RelativeLayout>

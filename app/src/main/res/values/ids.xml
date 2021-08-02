@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="LinearLayout_head" type="id" />
+    <item name="textView_chatroom" type="id">聊天室</item>
+    <item name="textView_group_name" type="id" />
+    <item name="fabSend" type="id" />
+    <item name="linearLayout_buttons" type="id" />
+    <item name="edtInput" type="id" />
+</resources>
