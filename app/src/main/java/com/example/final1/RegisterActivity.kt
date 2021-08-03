@@ -8,15 +8,23 @@ import com.example.final1.Extensions.toast
 import com.example.final1.FirebaseUtils.firebaseAuth
 import com.example.final1.FirebaseUtils.firebaseUser
 import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 import kotlinx.android.synthetic.main.activity_register.*
 
 class RegisterActivity : AppCompatActivity() {
     lateinit var userEmail: String
     lateinit var userPassword: String
+    lateinit var userName: String
+    lateinit var userPhone: String
     lateinit var createAccountInputsArray: Array<EditText>
+    lateinit var database: DatabaseReference
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        database = FirebaseDatabase.getInstance("https://project-test-8dbf1-default-rtdb.asia-southeast1.firebasedatabase.app").getReference("Users")
+
         setContentView(R.layout.activity_register)
         createAccountInputsArray = arrayOf(account_name, account_id, passwords, passwords_check, phone_num)
         button_confirm_register.setOnClickListener {
@@ -44,7 +52,9 @@ class RegisterActivity : AppCompatActivity() {
 
     private fun notEmpty(): Boolean = account_id.text.toString().trim().isNotEmpty() &&
             passwords.text.toString().trim().isNotEmpty() &&
-            passwords_check.text.toString().trim().isNotEmpty()
+            passwords_check.text.toString().trim().isNotEmpty() &&
+            account_name.toString().trim().isNotEmpty() &&
+            phone_num.toString().trim().isNotEmpty()
 
     private fun identicalPassword(): Boolean {
         var identical = false
@@ -69,11 +79,15 @@ class RegisterActivity : AppCompatActivity() {
             // identicalPassword() returns true only  when inputs are not empty and passwords are identical
             userEmail = account_id.text.toString().trim()
             userPassword = passwords.text.toString().trim()
+            userName = account_name.text.toString().trim()
+            userPhone = phone_num.text.toString().trim()
+            val User = User(userEmail, userName, userPhone)
 
             /*create a user*/
             firebaseAuth.createUserWithEmailAndPassword(userEmail, userPassword)
                 .addOnCompleteListener { task ->
                     if (task.isSuccessful) {
+                        database.child(userEmail.replace(".", "")).setValue(User)
                         toast("created account successfully !")
                         sendEmailVerification()
                         startActivity(Intent(this, HomeActivity::class.java))
