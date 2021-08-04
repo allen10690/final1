@@ -16,13 +16,15 @@
 
         <!-- 按鈕：回到home -->
         <Button
-            android:id="@+id/button8"
-            android:layout_width="45dp"
+            android:id="@+id/returnmenu_btn_groupinf"
+            android:layout_width="66dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="首頁" />
 
         <!-- 標題：群組資訊、成員 -->
+
+
         <TextView
             android:id="@+id/textView_chatroom"
             android:layout_width="wrap_content"
@@ -32,6 +34,12 @@
             android:text="群組資訊              "
             android:textColor="#000000"
             android:textSize="20sp" />
+        <Button
+            android:id="@+id/switch_groupbtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="切換群組" />
     </LinearLayout>
 
 

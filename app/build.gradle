@@ -60,4 +60,13 @@ dependencies {
 
     implementation platform('com.google.firebase:firebase-bom:28.3.0')
     implementation 'com.google.firebase:firebase-analytics-ktx'
+
+    implementation 'com.squareup.picasso:picasso:2.71828'
+    implementation 'com.xwray:groupie:2.8.0'
+
+
+
+
+
+
 }

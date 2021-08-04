@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.final1.Extensions.toast
 import com.example.final1.FirebaseUtils.firebaseAuth
 import com.example.final1.FirebaseUtils.firebaseUser
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
@@ -23,7 +24,7 @@ class RegisterActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        database = FirebaseDatabase.getInstance("https://project-test-8dbf1-default-rtdb.asia-southeast1.firebasedatabase.app").getReference("Users")
+        database = FirebaseDatabase.getInstance("https://project-test-8dbf1-default-rtdb.asia-southeast1.firebasedatabase.app").getReference("root")
 
         setContentView(R.layout.activity_register)
         createAccountInputsArray = arrayOf(account_name, account_id, passwords, passwords_check, phone_num)
@@ -87,7 +88,10 @@ class RegisterActivity : AppCompatActivity() {
             firebaseAuth.createUserWithEmailAndPassword(userEmail, userPassword)
                 .addOnCompleteListener { task ->
                     if (task.isSuccessful) {
-                        database.child(userEmail.replace(".", "")).setValue(User)
+                        val uid = FirebaseAuth.getInstance().uid
+                        if (uid != null) {
+                            database.child("Users").child(uid).setValue(User)
+                        }
                         toast("created account successfully !")
                         sendEmailVerification()
                         startActivity(Intent(this, HomeActivity::class.java))

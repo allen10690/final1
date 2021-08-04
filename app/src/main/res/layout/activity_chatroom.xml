@@ -23,7 +23,7 @@
 
             <!-- 按鈕：回到home -->
             <Button
-                android:id="@+id/button8"
+                android:id="@+id/returnmenu_btn_chatroom"
                 android:layout_width="45dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -43,7 +43,7 @@
 
         <!-- 顯示群組名稱(聊天室) -->
         <TextView
-            android:id="@+id/textView6"
+            android:id="@+id/chatroom_name"
             android:layout_width="match_parent"
             android:layout_height="45dp"
             android:ems="20"
@@ -55,7 +55,14 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="540dp"
-            android:orientation="vertical"></LinearLayout>
+            android:orientation="vertical">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerview_chatroom"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -65,7 +72,7 @@
 
             <!-- 輸入框：輸入訊息 -->
             <EditText
-                android:id="@+id/et"
+                android:id="@+id/et_message"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="8"
@@ -73,7 +80,7 @@
 
             <!-- 按鈕：送出訊息 -->
             <Button
-                android:id="@+id/btn"
+                android:id="@+id/send_btn"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_margin="3dp"
@@ -98,7 +105,7 @@
 
         <!-- 按鈕：聊天室 -->
         <Button
-            android:id="@+id/button9"
+            android:id="@+id/chatroom_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -106,7 +113,7 @@
 
         <!-- 按鈕：地圖 -->
         <Button
-            android:id="@+id/button10"
+            android:id="@+id/map_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -114,7 +121,7 @@
 
         <!-- 按鈕：群組資訊 -->
         <Button
-            android:id="@+id/button11"
+            android:id="@+id/group_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -122,7 +129,7 @@
 
         <!-- 按鈕：行程 -->
         <Button
-            android:id="@+id/button12"
+            android:id="@+id/schedule_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"

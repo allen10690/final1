@@ -5,9 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <!-- 返回按鈕 (回到home頁面) -->
+    <!-- 返回按鈕 (回到group information頁面) -->
     <Button
-        android:id="@+id/button_to_home"
+        android:id="@+id/returnGroupInf_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/back_button"
@@ -22,11 +22,13 @@
         app:layout_constraintVertical_bias="0.023" />
 
     <!-- 標題：群組 -->
+
+    <!-- 按鈕：建立群組 -->
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="28dp"
         android:text="群組"
         android:textColor="@color/black"
         android:textSize="40sp"
@@ -35,9 +37,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <!-- 按鈕：建立群組 -->
     <Button
-        android:id="@+id/button14"
+        android:id="@+id/creategroup_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="112dp"
@@ -48,14 +49,25 @@
 
     <!-- 按鈕：加入群組 -->
     <Button
-        android:id="@+id/button15"
+        android:id="@+id/joingroup_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
         android:text="加入群組"
-        app:layout_constraintBottom_toBottomOf="@+id/button14"
-        app:layout_constraintStart_toEndOf="@+id/button14"
-        app:layout_constraintTop_toTopOf="@+id/button14"
+        app:layout_constraintBottom_toBottomOf="@+id/creategroup_btn"
+        app:layout_constraintStart_toEndOf="@+id/creategroup_btn"
+        app:layout_constraintTop_toTopOf="@+id/creategroup_btn"
         app:layout_constraintVertical_bias="0.0" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerview_group"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        android:layout_width="409dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/joingroup_btn" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
