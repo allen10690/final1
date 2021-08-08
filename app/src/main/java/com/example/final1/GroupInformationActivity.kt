@@ -38,6 +38,19 @@ class GroupInformationActivity : AppCompatActivity() {
                         for (item in postSnapshot) {
                             var useruid = item.key
                             adapter.add(memberlistItem(useruid.toString()))
+                            /*
+                            if (useruid != null) {
+                                database.child("Chats").child(current_group).child("Useruid").child(useruid).child("la").get().addOnSuccessListener {
+                                    var la = it.value
+                                    adapter.add(memberlistItem(la.toString()))
+                                }
+                                database.child("Chats").child(current_group).child("Useruid").child(useruid).child("lo").get().addOnSuccessListener {
+                                    var lo = it.value
+                                    adapter.add(memberlistItem(lo.toString()))
+                                }
+                            }
+                            */
+
                         }
                     }
                     override fun onCancelled(error: DatabaseError) {

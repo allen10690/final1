@@ -104,9 +104,13 @@ class MapsActivity : FragmentActivity(), OnMapReadyCallback ,LocationListener ,L
         mLocationChangedListener.onLocationChanged(location)//抓之前的位置
         mMap.animateCamera(CameraUpdateFactory.newLatLng(LatLng(location.latitude,location.longitude)))//可能要改!!!移動鏡頭到新位置
 
+        var otherPersonLa:Double
+        otherPersonLa = 0.0
+        var otherPersonLo:Double
+        otherPersonLo = 0.0
         //設定經緯度顯示
-        val la=location.latitude.toString()
-        val lo=location.longitude.toString()
+        val la=location.latitude
+        val lo=location.longitude
 
         //-------------------------firebase----------------------------------
         val userid = FirebaseAuth.getInstance().uid //取得現在的user的uid
@@ -135,6 +139,44 @@ class MapsActivity : FragmentActivity(), OnMapReadyCallback ,LocationListener ,L
         mylocationtxt="我的經度是"+lo+"，\n我的緯度是:"+la
         val mylocationinfo : TextView =findViewById(R.id.mylocationinfo)
         mylocationinfo.setText(mylocationtxt)
+
+        database.child("Users").child(userid.toString()).child("currentGroup").get().addOnSuccessListener {
+            current_group = it.value as String
+            if (current_group == "not_have_yet") {
+                val intent = Intent(this, GroupActivity::class.java)
+                startActivity(intent)
+                finish()
+            }
+            else {
+                database.child("Chats").child(current_group).child("Useruid").addValueEventListener(object:
+                    ValueEventListener {
+                    override fun onDataChange(datasnapshot: DataSnapshot) {
+                        val postSnapshot = datasnapshot.children
+                        for (item in postSnapshot) {
+                            var useruid = item.key
+                            if (useruid != null) {
+                                database.child("Chats").child(current_group).child("Useruid").child(useruid).child("la").get().addOnSuccessListener {
+                                    var latitude = it.value
+                                    otherPersonLa = latitude as Double
+                                }
+                                database.child("Chats").child(current_group).child("Useruid").child(useruid).child("lo").get().addOnSuccessListener {
+                                    var longitude = it.value
+                                    otherPersonLo = longitude as Double
+                                }
+                            }
+                            val otherPerson = LatLng(otherPersonLa, otherPersonLo)
+                            mMap.addMarker(MarkerOptions().position(otherPerson).title(useruid))
+
+                        }
+                    }
+                    override fun onCancelled(error: DatabaseError) {
+                    }
+                })
+            }
+        }.addOnFailureListener {
+            val intent = Intent(this, GroupActivity::class.java)
+            startActivity(intent)
+        }
 
 
     }
