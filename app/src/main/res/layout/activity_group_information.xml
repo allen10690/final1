@@ -144,7 +144,7 @@
 
             <!-- 按鈕：地圖 -->
             <Button
-                android:id="@+id/button10"
+                android:id="@+id/map_btn_groupinf"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
