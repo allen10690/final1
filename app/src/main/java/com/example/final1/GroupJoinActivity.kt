@@ -34,7 +34,7 @@ class GroupJoinActivity : AppCompatActivity() {
                 else {
                     database.child("Users").child(userid.toString()).child("userName").get().addOnSuccessListener {
                         Toast.makeText(this@GroupJoinActivity, "join group success", Toast.LENGTH_SHORT).show()
-                        database.child("Chats").child(groupid).child(userid.toString()).setValue(it.value)
+                        database.child("Chats").child(groupid).child("Useruid").child(userid.toString()).setValue(it.value)
                         database.child("Users").child(userid.toString()).child("Groups").child(groupid).setValue("True")
                         }
                 }

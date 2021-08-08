@@ -5,6 +5,7 @@ import android.location.Location
 import android.annotation.SuppressLint
 import android.app.Dialog
 import android.content.DialogInterface
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Log
@@ -22,6 +23,9 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import com.google.android.gms.maps.*
 import com.google.android.gms.maps.SupportMapFragment
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.*
+import kotlinx.android.synthetic.main.activity_group_information.*
 
 
 class MapsActivity : FragmentActivity(), OnMapReadyCallback ,LocationListener ,LocationSource{
@@ -31,6 +35,8 @@ class MapsActivity : FragmentActivity(), OnMapReadyCallback ,LocationListener ,L
     private lateinit var mLocationMgr :LocationManager
     private lateinit var mLocationChangedListener: LocationSource.OnLocationChangedListener
     private lateinit var mylocationtxt : String
+    lateinit var database: DatabaseReference //gan->firebase
+    lateinit var current_group : String //gan->firebase
 
 
     //測試權限
@@ -52,6 +58,7 @@ class MapsActivity : FragmentActivity(), OnMapReadyCallback ,LocationListener ,L
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_maps)
         mLocationMgr = getSystemService(LOCATION_SERVICE) as LocationManager//開一個location
+        database = FirebaseDatabase.getInstance("https://project-test-8dbf1-default-rtdb.asia-southeast1.firebasedatabase.app").getReference("root")//database get 路徑
 
 
         // 建立SupportMapFragment，並且設定Map的callback
@@ -100,9 +107,35 @@ class MapsActivity : FragmentActivity(), OnMapReadyCallback ,LocationListener ,L
         //設定經緯度顯示
         val la=location.latitude.toString()
         val lo=location.longitude.toString()
+
+        //-------------------------firebase----------------------------------
+        val userid = FirebaseAuth.getInstance().uid //取得現在的user的uid
+
+        //拿User的current_group
+        database.child("Users").child(userid.toString()).child("currentGroup").get().addOnSuccessListener {
+            current_group = it.value as String
+            //如果沒有的話，跳轉到GroupActivity裡加入Group或切換
+            if (current_group == "not_have_yet") {
+                val intent = Intent(this, GroupActivity::class.java)
+                startActivity(intent)
+                finish()
+            }
+            else {
+                if (userid != null) {
+                    database.child("Chats").child(current_group).child("Useruid").child(userid).child("la").setValue(la)
+                    database.child("Chats").child(current_group).child("Useruid").child(userid).child("lo").setValue(lo)
+                }
+            }
+        }.addOnFailureListener {
+            val intent = Intent(this, GroupActivity::class.java)
+            startActivity(intent)
+        }
+        //-------------------------firebase----------------------------------
+
         mylocationtxt="我的經度是"+lo+"，\n我的緯度是:"+la
         val mylocationinfo : TextView =findViewById(R.id.mylocationinfo)
         mylocationinfo.setText(mylocationtxt)
+
 
     }
 

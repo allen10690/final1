@@ -18,6 +18,7 @@ class RegisterActivity : AppCompatActivity() {
     lateinit var userPassword: String
     lateinit var userName: String
     lateinit var userPhone: String
+    lateinit var currentGroup: String
     lateinit var createAccountInputsArray: Array<EditText>
     lateinit var database: DatabaseReference
 
@@ -82,7 +83,8 @@ class RegisterActivity : AppCompatActivity() {
             userPassword = passwords.text.toString().trim()
             userName = account_name.text.toString().trim()
             userPhone = phone_num.text.toString().trim()
-            val User = User(userEmail, userName, userPhone)
+            currentGroup = "not_have_yet".trim()
+            val User = User(userEmail, userName, userPhone, currentGroup)
 
             /*create a user*/
             firebaseAuth.createUserWithEmailAndPassword(userEmail, userPassword)

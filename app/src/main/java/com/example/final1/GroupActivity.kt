@@ -3,8 +3,6 @@ package com.example.final1
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.Message
-import android.widget.Toast
 import com.example.final1.Extensions.toast
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
@@ -13,6 +11,7 @@ import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
 import com.xwray.groupie.Item
 import kotlinx.android.synthetic.main.activity_group.*
+import kotlinx.android.synthetic.main.grouplist.*
 import kotlinx.android.synthetic.main.grouplist.view.*
 
 class GroupActivity : AppCompatActivity() {
@@ -26,22 +25,25 @@ class GroupActivity : AppCompatActivity() {
         //adapter設定
         val userid = FirebaseAuth.getInstance().uid
         val adapter = GroupAdapter<GroupieViewHolder>()
-
+        //為資料庫中的group增加進adapter
         database.child("Users").child(userid.toString()).child("Groups").addValueEventListener(object: ValueEventListener {
             override fun onDataChange(datasnapshot: DataSnapshot) {
                 adapter.clear()
                 val postSnapshot = datasnapshot.children
-                if (postSnapshot != null) {
-                    for (item in postSnapshot) {
-                        var grpname = item.key
-                        adapter.add(GroupItem(grpname.toString()))
-                    }
+                for (item in postSnapshot) {
+                    var grpname = item.key
+                    adapter.add(GroupItem(grpname.toString()))
                 }
             }
             override fun onCancelled(error: DatabaseError) {
             }
         })
         recyclerview_group.adapter = adapter
+
+        adapter.setOnItemClickListener { item, view ->
+            val GroupItem = item as GroupItem
+            database.child("Users").child(userid.toString()).child("currentGroup").setValue(GroupItem.name)
+        }
 
         returnGroupInf_btn.setOnClickListener{
             val intent = Intent(this, GroupInformationActivity::class.java)
@@ -59,7 +61,7 @@ class GroupActivity : AppCompatActivity() {
                     // whenever data at this location is updated.
                     val username = snapshot.getValue<String>()
                     // 資料庫Chats下增加成員
-                    database.child("Chats").child(chatkey!!).child(userid.toString()).setValue(username)
+                    database.child("Chats").child(chatkey!!).child("Useruid").child(userid.toString()).setValue(username)
                     // Chats給予預設名稱
                     database.child("Chats").child(chatkey).child("GroupName").setValue("未命名聊天室")
                 }
@@ -89,3 +91,4 @@ class GroupItem(val name: String) : Item<GroupieViewHolder>() {
         viewHolder.itemView.groupname.text = name
     }
 }
+
