@@ -77,7 +77,8 @@
                 android:layout_toRightOf="@id/textView2"
                 android:ems="15"
                 android:textColor="@color/black"
-                android:textSize="16sp" />
+                android:textSize="16sp"
+                android:text="XXX群組："/>
         </LinearLayout>
 
 
@@ -178,9 +179,9 @@
         android:layout_below="@id/LinearLayout_text"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginStart="0dp"
+        android:layout_marginStart="20dp"
         android:layout_marginTop="0dp"
-        android:layout_marginEnd="0dp"
+        android:layout_marginEnd="20dp"
         android:layout_marginBottom="0dp"
         app:layout_constraintBottom_toTopOf="@id/linearLayout_buttons" />
 
