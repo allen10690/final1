@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/ic_chatroom"
+        android:icon="@drawable/ic_chatroom"
+        android:title="聊天室"/>
+
+    <item
+        android:id="@+id/ic_map"
+        android:icon="@drawable/ic_map"
+        android:title="地圖"/>
+
+    <item
+        android:id="@+id/ic_group_information"
+        android:icon="@drawable/ic_group_information"
+        android:title="群組資訊"/>
+
+    <item
+        android:id="@+id/ic_schedule"
+        android:icon="@drawable/ic_schedule"
+        android:title="行程"/>
+
+
+</menu>
