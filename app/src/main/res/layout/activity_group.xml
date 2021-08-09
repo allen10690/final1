@@ -68,7 +68,7 @@
 
     <!-- 按鈕：設定(前往activity_setting_and_privacy頁面) -->
     <ImageButton
-        android:id="@+id/imageButton_setting"
+        android:id="@+id/setting_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:srcCompat="@drawable/ic_settings"

@@ -79,6 +79,11 @@ class GroupActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+        setting_btn.setOnClickListener{
+            val intent = Intent(this, Setting_and_Privacy::class.java)
+            startActivity(intent)
+        }
+
 
     }
 }
