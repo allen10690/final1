@@ -7,7 +7,7 @@
 
     <!-- 返回按鈕  -->
     <Button
-        android:id="@+id/return_btn"
+        android:id="@+id/returnGroupInf_btn"
         android:layout_width="80dp"
         android:layout_height="46dp"
         android:backgroundTint="@color/back_button"
