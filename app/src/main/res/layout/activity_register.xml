@@ -27,8 +27,8 @@
 
     <EditText
         android:id="@+id/account_name"
-        android:layout_width="230dp"
-        android:layout_height="35dp"
+        android:layout_width="350dp"
+        android:layout_height="45dp"
         android:background="#51292929"
         android:ems="10"
         android:hint="姓名/暱稱"
@@ -39,15 +39,14 @@
         android:textSize="19sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/account_id"
-        app:layout_constraintHorizontal_bias="0.512"
         app:layout_constraintStart_toStartOf="@+id/account_id"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.311" />
 
     <EditText
         android:id="@+id/account_id"
-        android:layout_width="230dp"
-        android:layout_height="35dp"
+        android:layout_width="350dp"
+        android:layout_height="45dp"
         android:layout_marginStart="111dp"
         android:layout_marginTop="12dp"
         android:layout_marginEnd="111dp"
@@ -66,12 +65,12 @@
 
     <EditText
         android:id="@+id/passwords"
-        android:layout_width="230dp"
-        android:layout_height="35dp"
-        android:layout_marginTop="12dp"
+        android:layout_width="350dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="8dp"
         android:background="#51292929"
         android:ems="10"
-        android:hint="密碼"
+        android:hint="密碼 (需含有英文與數字共8位以上)"
         android:inputType="textPassword"
         android:paddingLeft="6dp"
         android:text="@string/acc"
@@ -84,8 +83,8 @@
 
     <EditText
         android:id="@+id/passwords_check"
-        android:layout_width="230dp"
-        android:layout_height="35dp"
+        android:layout_width="350dp"
+        android:layout_height="45dp"
         android:layout_marginTop="12dp"
         android:background="#51292929"
         android:ems="10"
@@ -102,8 +101,8 @@
 
     <EditText
         android:id="@+id/phone_num"
-        android:layout_width="230dp"
-        android:layout_height="35dp"
+        android:layout_width="350dp"
+        android:layout_height="45dp"
         android:background="#51292929"
         android:ems="10"
         android:hint="手機"
@@ -123,13 +122,13 @@
         android:id="@+id/button_confirm_register"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="36dp"
-        android:layout_marginEnd="52dp"
+        android:layout_marginTop="28dp"
         android:backgroundTint="#FFFFFF"
         android:text="確定"
         android:textColor="#C3000000"
         android:textSize="25sp"
-        app:layout_constraintEnd_toStartOf="@+id/button_cancel"
+        app:layout_constraintEnd_toEndOf="@+id/phone_num"
+        app:layout_constraintHorizontal_bias="0.274"
         app:layout_constraintStart_toStartOf="@+id/phone_num"
         app:layout_constraintTop_toBottomOf="@+id/phone_num" />
 
@@ -137,12 +136,13 @@
         android:id="@+id/button_cancel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
         android:backgroundTint="#D6D6D6"
         android:text="取消"
         android:textColor="#C1000000"
         android:textSize="25sp"
         app:layout_constraintBottom_toBottomOf="@+id/button_confirm_register"
-        app:layout_constraintEnd_toEndOf="@+id/phone_num"
+        app:layout_constraintStart_toEndOf="@+id/button_confirm_register"
         app:layout_constraintTop_toTopOf="@+id/button_confirm_register"
         app:layout_constraintVertical_bias="0.0" />
 
