@@ -84,6 +84,10 @@ class GroupActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+        creategroup_btn.setOnClickListener{
+            val intent = Intent(this, GroupCreateActivity::class.java)
+            startActivity(intent)
+        }
 
     }
 }
