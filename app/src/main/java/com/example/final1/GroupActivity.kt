@@ -28,6 +28,7 @@ class GroupActivity : AppCompatActivity() {
         val adapter = GroupAdapter<GroupieViewHolder>()
         var grpkeylist:MutableList<String> = mutableListOf()
         //為資料庫中的group增加進adapter
+        //abc
         database.child("Users").child(userid.toString()).child("Groups").addValueEventListener(object: ValueEventListener {
             override fun onDataChange(datasnapshot: DataSnapshot) {
                 adapter.clear()

@@ -25,6 +25,7 @@ import com.google.android.gms.maps.*
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
+import com.google.firebase.database.ktx.getValue
 import kotlinx.android.synthetic.main.activity_group_information.*
 
 
@@ -111,7 +112,7 @@ class MapsActivity : FragmentActivity(), OnMapReadyCallback ,LocationListener ,L
 
         //拿User的current_group
         database.child("Users").child(userid.toString()).child("currentGroup").get().addOnSuccessListener {
-            current_group = it.value as String
+            current_group = (it.value as String?)!!
             //如果沒有的話，跳轉到GroupActivity裡加入Group或切換
             if (current_group == "not_have_yet") {
                 val intent = Intent(this, GroupActivity::class.java)
@@ -146,28 +147,16 @@ class MapsActivity : FragmentActivity(), OnMapReadyCallback ,LocationListener ,L
                     ValueEventListener {
                     override fun onDataChange(datasnapshot: DataSnapshot) {
                         val postSnapshot = datasnapshot.children
-                        var otherPersonLa:Double
-                        otherPersonLa = la
-                        var otherPersonLo:Double
-                        otherPersonLo = lo
                         mMap.clear()
                         for (item in postSnapshot) {
                             var useruid = item.key
                             if (useruid != null) {
-                                database.child("Chats").child(current_group).child("Useruid").child(useruid).child("la").get().addOnSuccessListener {
-                                    var latitude = it.value as Double?
-                                    if (latitude != null) {
-                                        otherPersonLa = latitude
+                                database.child("Chats").child(current_group).child("Useruid").child(useruid).get().addOnSuccessListener { datasnapshot ->
+                                    var positionlalo = datasnapshot.getValue<positionlalo>()
+                                    if (positionlalo != null) {
+                                        mMap.addMarker(MarkerOptions().position(LatLng(positionlalo.la, positionlalo.lo)).title(useruid))
                                     }
                                 }
-                                database.child("Chats").child(current_group).child("Useruid").child(useruid).child("lo").get().addOnSuccessListener {
-                                    var longitude = it.value as Double?
-                                    if (longitude != null) {
-                                        otherPersonLo = longitude
-                                    }
-                                }
-                                val otherPerson = LatLng(otherPersonLa, otherPersonLo)
-                                mMap.addMarker(MarkerOptions().position(otherPerson).title(useruid))
                             }
                         }
                     }
@@ -253,4 +242,8 @@ class MapsActivity : FragmentActivity(), OnMapReadyCallback ,LocationListener ,L
 
 
 
+}
+
+data class positionlalo(val la: Double, val lo: Double) {
+constructor() : this   (-1.0,-1.0)
 }
