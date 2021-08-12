@@ -11,6 +11,7 @@ import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
 import com.xwray.groupie.Item
 import kotlinx.android.synthetic.main.activity_group.*
+import kotlinx.android.synthetic.main.activity_group_information.*
 import kotlinx.android.synthetic.main.grouplist.*
 import kotlinx.android.synthetic.main.grouplist.view.*
 
@@ -25,14 +26,17 @@ class GroupActivity : AppCompatActivity() {
         //adapter設定
         val userid = FirebaseAuth.getInstance().uid
         val adapter = GroupAdapter<GroupieViewHolder>()
+        var grpkeylist:MutableList<String> = mutableListOf()
         //為資料庫中的group增加進adapter
         database.child("Users").child(userid.toString()).child("Groups").addValueEventListener(object: ValueEventListener {
             override fun onDataChange(datasnapshot: DataSnapshot) {
                 adapter.clear()
                 val postSnapshot = datasnapshot.children
                 for (item in postSnapshot) {
-                    var grpname = item.key
-                    adapter.add(GroupItem(grpname.toString()))
+                    grpkeylist.add(item.key.toString())
+                    database.child("Chats").child(item.key.toString()).child("GroupName").get().addOnSuccessListener {
+                        adapter.add(GroupItem(it.value as String))
+                    }
                 }
             }
             override fun onCancelled(error: DatabaseError) {
@@ -41,8 +45,8 @@ class GroupActivity : AppCompatActivity() {
         recyclerview_group.adapter = adapter
 
         adapter.setOnItemClickListener { item, view ->
-            val GroupItem = item as GroupItem
-            database.child("Users").child(userid.toString()).child("currentGroup").setValue(GroupItem.name)
+            val positionofitem = adapter.getAdapterPosition(item)
+            database.child("Users").child(userid.toString()).child("currentGroup").setValue(grpkeylist[positionofitem])
         }
 
         returnGroupInf_btn.setOnClickListener{
@@ -84,10 +88,11 @@ class GroupActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        creategroup_btn.setOnClickListener{
-            val intent = Intent(this, GroupCreateActivity::class.java)
+        setting_btn.setOnClickListener{
+            val intent = Intent(this, Setting_and_Privacy::class.java)
             startActivity(intent)
         }
+
 
     }
 }

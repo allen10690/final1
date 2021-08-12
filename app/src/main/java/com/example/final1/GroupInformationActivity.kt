@@ -22,6 +22,8 @@ class GroupInformationActivity : AppCompatActivity() {
         val userid = FirebaseAuth.getInstance().uid
         val adapter = GroupAdapter<GroupieViewHolder>()
 
+
+        var userkeyingrouplist:MutableList<String> = mutableListOf()
         database.child("Users").child(userid.toString()).child("currentGroup").get().addOnSuccessListener {
             current_group = it.value as String
             if (current_group == "not_have_yet") {
@@ -30,26 +32,19 @@ class GroupInformationActivity : AppCompatActivity() {
                 finish()
             }
             else {
+                database.child("Chats").child(current_group).child("GroupName").get().addOnSuccessListener {
+                    groupname_grpinf.text = it.value as CharSequence?
+                }
                 database.child("Chats").child(current_group).child("Useruid").addValueEventListener(object:
                     ValueEventListener {
                     override fun onDataChange(datasnapshot: DataSnapshot) {
                         adapter.clear()
                         val postSnapshot = datasnapshot.children
                         for (item in postSnapshot) {
-                            var useruid = item.key
-                            adapter.add(memberlistItem(useruid.toString()))
-                            /*
-                            if (useruid != null) {
-                                database.child("Chats").child(current_group).child("Useruid").child(useruid).child("la").get().addOnSuccessListener {
-                                    var la = it.value
-                                    adapter.add(memberlistItem(la.toString()))
-                                }
-                                database.child("Chats").child(current_group).child("Useruid").child(useruid).child("lo").get().addOnSuccessListener {
-                                    var lo = it.value
-                                    adapter.add(memberlistItem(lo.toString()))
-                                }
+                            userkeyingrouplist.add(item.key.toString())
+                            database.child("Users").child(item.key.toString()).child("userName").get().addOnSuccessListener {
+                                adapter.add(memberlistItem(it.value as String))
                             }
-                            */
                         }
                     }
                     override fun onCancelled(error: DatabaseError) {
@@ -73,8 +68,8 @@ class GroupInformationActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        map_btn_groupinf.setOnClickListener{
-            val intent = Intent(this, MapsActivity::class.java)
+        chatroom_btn_grpinf.setOnClickListener{
+            val intent = Intent(this, ChatroomActivity::class.java)
             startActivity(intent)
         }
 

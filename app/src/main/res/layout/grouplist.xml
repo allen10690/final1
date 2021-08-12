@@ -2,6 +2,9 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:clickable="true"
+    android:background="?android:selectableItemBackground"
+    android:focusable="true"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
@@ -10,6 +13,8 @@
         android:layout_width="0dp"
         android:layout_height="48dp"
         android:layout_marginStart="8dp"
+        android:gravity=""
+        android:orientation="horizontal"
         android:text="Text"
         app:layout_constraintBottom_toBottomOf="@+id/grouppic"
         app:layout_constraintEnd_toEndOf="parent"
@@ -24,6 +29,7 @@
         android:layout_marginTop="16dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:srcCompat="@tools:sample/avatars" />
+        tools:srcCompat="@tools:sample/avatars"
+         />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
