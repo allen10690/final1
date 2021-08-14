@@ -42,7 +42,12 @@ class GroupJoinActivity : AppCompatActivity() {
             }.addOnFailureListener {
                 toast("unexpected wrong")
             }
+        }
 
+        to_qrscan_btn.setOnClickListener {
+            var intent=Intent(this,QR_Scan::class.java)
+            startActivity(intent)
+            finish()
         }
 
     }

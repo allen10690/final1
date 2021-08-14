@@ -47,5 +47,6 @@
     <string name="mylocationinfo">我的位置在:</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="createQR_btn">生成QR code</string>
 
 </resources>

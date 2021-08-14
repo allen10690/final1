@@ -10,6 +10,8 @@
     <uses-configuration android:name="android.permission.INTERNET" />
 
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <!-- 允許程式存取相機給qr掃描 -->
+    <uses-permission android:name="android.permission.CAMERA"/>
 
     <application
         android:allowBackup="true"
@@ -18,6 +20,9 @@
         android:roundIcon="@drawable/app_mark_circle"
         android:supportsRtl="true"
         android:theme="@style/Theme.Final1">
+        <activity
+            android:name=".QRcodeActivity"
+            android:exported="true" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -52,6 +57,7 @@
         <activity android:name=".GroupActivity" />
         <activity android:name=".GroupInformationActivity" />
         <activity android:name=".GroupJoinActivity" />
+        <activity android:name=".QR_Scan" />
     </application>
 
 </manifest>
